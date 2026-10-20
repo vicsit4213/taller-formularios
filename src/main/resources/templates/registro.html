@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Jugador</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Registro de Jugador</h3>
+                </div>
+                <div class="card-body p-4">
+
+                    
+                    <form th:action="@{/registro}" th:object="${jugador}" method="post" novalidate>
+
+                       
+                        <input type="hidden" th:field="*{id}" />
+
+                        
+                        <div class="alert alert-danger mb-4" role="alert" th:if="${#fields.hasAnyErrors()}">
+                            <h5 class="alert-heading fw-bold mb-2">Revisa estos datos antes de continuar:</h5>
+                            <ul class="mb-0 ps-3">
+                                <li th:each="error : ${#fields.allErrors()}" th:text="${error}">Error</li>
+                            </ul>
+                        </div>
+
+                       
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label font-weight-bold">Nombre:</label>
+                            <input type="text" id="nombre" class="form-control" th:field="*{nombre}"
+                                   th:errorclass="is-invalid" aria-describedby="nombre-error" />
+                            <div id="nombre-error" class="invalid-feedback"
+                                 th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+                                
+                            </div>
+                        </div>
+
+                       
+                        <div class="mb-3">
+                            <label for="apodo" class="form-label font-weight-bold">Apodo:</label>
+                            <input type="text" id="apodo" class="form-control" th:field="*{apodo}"
+                                   th:errorclass="is-invalid" aria-describedby="apodo-error" />
+                            <div id="apodo-error" class="invalid-feedback"
+                                 th:if="${#fields.hasErrors('apodo')}" th:errors="*{apodo}">
+                               
+                            </div>
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label for="edad" class="form-label font-weight-bold">Edad:</label>
+                            <input type="number" id="edad" class="form-control" th:field="*{edad}"
+                                   th:errorclass="is-invalid" aria-describedby="edad-error" />
+                            <div id="edad-error" class="invalid-feedback"
+                                 th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}">
+                                
+                            </div>
+                        </div>
+
+                       
+                        <div class="mb-3">
+                            <label for="email" class="form-label font-weight-bold">Correo Electrónico:</label>
+                            <input type="email" id="email" class="form-control" th:field="*{email}"
+                                   th:errorclass="is-invalid" aria-describedby="email-error" placeholder="ejemplo@correo.com" />
+                            <div id="email-error" class="invalid-feedback"
+                                 th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                                
+                            </div>
+                        </div>
+
+                      
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label font-weight-bold">Teléfono:</label>
+                            <input type="text" id="telefono" class="form-control" th:field="*{telefono}"
+                                   th:errorclass="is-invalid" aria-describedby="telefono-error" placeholder="12345678" />
+                            <div id="telefono-error" class="invalid-feedback"
+                                 th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">
+                                
+                            </div>
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label for="posicion" class="form-label font-weight-bold">Posición preferida:</label>
+                            <select id="posicion" class="form-select" th:field="*{posicion}"
+                                    th:errorclass="is-invalid" aria-describedby="posicion-error">
+                                <option value="">-- Seleccione una posición --</option>
+                                <option th:each="pos : ${listaPosiciones}" th:value="${pos}" th:text="${pos}"></option>
+                            </select>
+                            <div id="posicion-error" class="invalid-feedback"
+                                 th:if="${#fields.hasErrors('posicion')}" th:errors="*{posicion}">
+                                
+                            </div>
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold d-block">Plataformas donde juega:</label>
+                            <div class="form-check" th:each="plat : ${listaPlataformas}">
+                                <input class="form-check-input" type="checkbox" th:field="*{plataformas}"
+                                       th:value="${plat}" th:id="${'plat_' + plat}" th:errorclass="is-invalid" />
+                                <label class="form-check-label" th:for="${'plat_' + plat}" th:text="${plat}">Plataforma</label>
+                            </div>
+                            <div class="invalid-feedback d-block"
+                                 th:if="${#fields.hasErrors('plataformas')}" th:errors="*{plataformas}">
+                              
+                            </div>
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold d-block">Nivel de Experiencia:</label>
+                            <div class="form-check" th:each="nivel : ${listaNiveles}">
+                                <input class="form-check-input" type="radio" th:field="*{nivelExperiencia}"
+                                       th:value="${nivel}" th:id="${'nivel_' + nivel}" th:errorclass="is-invalid" />
+                                <label class="form-check-label" th:for="${'nivel_' + nivel}" th:text="${nivel}">Nivel</label>
+                            </div>
+                            <div class="invalid-feedback d-block"
+                                 th:if="${#fields.hasErrors('nivelExperiencia')}" th:errors="*{nivelExperiencia}">
+                                
+                            </div>
+                        </div>
+
+                        <!-- Botón Enviar -->
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Guardar Registro</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

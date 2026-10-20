@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso Denegado</title>
+    <link rel="stylesheet" th:href="@{/estilos.css}">
+</head>
+<body>
+    <div style="width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ff4d4d; border-radius: 5px; text-align: center;">
+        <h2 style="color: #ff4d4d;">Acceso Denegado</h2>
+        <p>No tienes permiso para esta acción.</p>
+        <br>
+        <a th:href="@{/jugadores}" style="padding: 8px 15px; background: #007bff; color: white; text-decoration: none; border-radius: 4px;">Volver a la lista</a>
+    </div>
+</body>
+</html>

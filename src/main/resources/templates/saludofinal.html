@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro Completado</title>
+</head>
+<body>
+    <h1>¡Jugador Registrado Exitosamente!</h1>
+    <p><strong>Nombre:</strong> <span th:text="${jugador.nombre}"></span></p>
+    <p><strong>Apodo:</strong> <span th:text="${jugador.apodo}"></span></p>
+    <p><strong>Edad:</strong> <span th:text="${jugador.edad}"></span></p>
+    
+    <br>
+    <a href="/registro">Registrar otro jugador</a>
+</body>
+</html>
