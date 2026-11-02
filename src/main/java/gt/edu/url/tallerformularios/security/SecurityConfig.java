@@ -15,7 +15,6 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        // Esto mapea automáticamente la URL /login al archivo login.html en templates
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/acceso-denegado").setViewName("acceso-denegado");
     }
@@ -29,8 +28,8 @@ public class SecurityConfig implements WebMvcConfigurer {
     public SecurityFilterChain filtros(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(reglas -> reglas
-                // Gana la PRIMERA regla que coincide: el orden importa.
-                .requestMatchers("/login", "/estilos.css", "/error").permitAll()
+                // Permite acceso público a login, carpetas de recursos estáticos y páginas de error
+                .requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/error").permitAll()
                 .requestMatchers("/jugadores/nuevo", "/jugadores/*/editar").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/jugadores/**").hasRole("ADMIN")
                 .anyRequest().authenticated())
