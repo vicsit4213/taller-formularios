@@ -2,7 +2,6 @@ package gt.edu.url.tallerformularios.controller;
 
 import jakarta.validation.Valid;
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +23,6 @@ public class JugadorController {
         this.jugadorService = jugadorService;
     }
 
-    // Método auxiliar para proveer las listas que usa tu HTML (registro.html)
     private void cargarListas(Model model) {
         model.addAttribute("listaPosiciones", Arrays.asList("Portero", "Defensa", "Mediocampista", "Delantero"));
         model.addAttribute("listaPlataformas", Arrays.asList("PC", "PlayStation", "Xbox", "Nintendo Switch"));
@@ -38,7 +36,8 @@ public class JugadorController {
         return "lista";
     }
 
-    @GetMapping("/jugadores/nuevo")
+    // Soporte para /jugadores/nuevo y también para /registro
+    @GetMapping({"/jugadores/nuevo", "/registro"})
     public String nuevo(Model model) {
         model.addAttribute("jugador", new Jugador());
         cargarListas(model);
@@ -52,11 +51,12 @@ public class JugadorController {
         return "registro";
     }
 
-    @PostMapping("/jugadores")
+    // Soporte para guardar desde /jugadores y /registro
+    @PostMapping({"/jugadores", "/registro"})
     public String guardar(@Valid @ModelAttribute("jugador") Jugador jugador,
                           BindingResult resultado, Model model) {
         if (resultado.hasErrors()) {
-            cargarListas(model); // Recarga las listas si hay error para que no falle la vista
+            cargarListas(model);
             return "registro";
         }
         jugadorService.guardar(jugador);
