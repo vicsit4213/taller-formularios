@@ -1,0 +1,37 @@
+package gt.edu.url.tallerformularios.security;
+
+import gt.edu.url.tallerformularios.model.Usuario;
+import gt.edu.url.tallerformularios.repository.UsuarioRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+public class CargadorUsuarios {
+
+    @Bean
+    CommandLineRunner inicializarUsuarios(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+        return args -> {
+            // Forzamos contraseñas por defecto para evitar que fallen en local
+            String adminPassword = "12345";
+            String entrenadorPassword = "12345";
+
+            if (usuarioRepository.findByUsername("admin").isEmpty()) {
+                Usuario admin = new Usuario();
+                admin.setUsername("admin");
+                admin.setPassword(passwordEncoder.encode(adminPassword));
+                admin.setRol("ROLE_ADMIN");
+                usuarioRepository.save(admin);
+            }
+
+            if (usuarioRepository.findByUsername("entrenador").isEmpty()) {
+                Usuario entrenador = new Usuario();
+                entrenador.setUsername("entrenador");
+                entrenador.setPassword(passwordEncoder.encode(entrenadorPassword));
+                entrenador.setRol("ROLE_ENTRENADOR");
+                usuarioRepository.save(entrenador);
+            }
+        };
+    }
+}

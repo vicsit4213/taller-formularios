@@ -13,9 +13,9 @@ public class CargadorUsuarios {
     @Bean
     CommandLineRunner inicializarUsuarios(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         return args -> {
-            // Intenta leer de la variable de entorno, si es nula asigna "12345" por defecto para desarrollo local
-            String adminPassword = System.getenv("ADMIN_PASSWORD") != null ? System.getenv("ADMIN_PASSWORD") : "12345";
-            String entrenadorPassword = System.getenv("ENTRENADOR_PASSWORD") != null ? System.getenv("ENTRENADOR_PASSWORD") : "12345";
+            // Forzamos contraseñas por defecto para evitar que fallen en local
+            String adminPassword = "12345";
+            String entrenadorPassword = "12345";
 
             if (usuarioRepository.findByUsername("admin").isEmpty()) {
                 Usuario admin = new Usuario();
