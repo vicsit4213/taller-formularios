@@ -32,20 +32,20 @@ public class JugadorController {
     @GetMapping("/jugadores/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("jugador", new Jugador());
-        return "formulario";
+        return "registro";
     }
 
     @GetMapping("/jugadores/{id}/editar")
     public String editar(@PathVariable Long id, Model model) {
         model.addAttribute("jugador", jugadorService.buscarPorId(id));
-        return "formulario";
+        return "registro";
     }
 
     @PostMapping("/jugadores")
     public String guardar(@Valid @ModelAttribute("jugador") Jugador jugador,
                           BindingResult resultado) {
         if (resultado.hasErrors()) {
-            return "formulario";
+            return "registro";
         }
         jugadorService.guardar(jugador);
         return "redirect:/jugadores";
