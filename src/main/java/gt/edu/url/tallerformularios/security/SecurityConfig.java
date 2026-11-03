@@ -28,10 +28,11 @@ public class SecurityConfig implements WebMvcConfigurer {
     public SecurityFilterChain filtros(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(reglas -> reglas
-                // Permite acceso público a login, carpetas de recursos estáticos y páginas de error
+                // Permisos públicos para login, recursos estáticos y errores
                 .requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/error").permitAll()
-                .requestMatchers("/jugadores/nuevo", "/jugadores/*/editar").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/jugadores/**").hasRole("ADMIN")
+                // Permitir ver y registrar jugadores tanto a ADMIN como a ENTRENADOR
+                .requestMatchers("/jugadores/nuevo", "/jugadores/*/editar", "/registro/**").hasAnyRole("ADMIN", "ENTRENADOR")
+                .requestMatchers(HttpMethod.POST, "/jugadores/**", "/registro/**").hasAnyRole("ADMIN", "ENTRENADOR")
                 .anyRequest().authenticated())
             .formLogin(login -> login
                 .loginPage("/login")

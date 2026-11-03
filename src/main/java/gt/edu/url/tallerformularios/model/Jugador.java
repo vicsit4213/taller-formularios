@@ -38,7 +38,7 @@ public class Jugador {
     private String telefono;
     private String posicion;
     
-    // Inicializado para evitar nulos y errores de colección
+    // Lista inicializada para evitar errores si no se marca ninguna plataforma
     @ElementCollection
     @CollectionTable(name = "jugador_plataformas", joinColumns = @JoinColumn(name = "jugador_id"))
     @Column(name = "plataforma")
@@ -46,7 +46,6 @@ public class Jugador {
 
     private String nivelExperiencia;
 
-    // Constructores
     public Jugador() {}
 
     // Getters y Setters
