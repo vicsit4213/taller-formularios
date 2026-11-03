@@ -1,7 +1,19 @@
 package gt.edu.url.tallerformularios.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,33 +37,43 @@ public class Jugador {
     private String email;
     private String telefono;
     private String posicion;
-
+    
+    // Inicializado para evitar nulos y errores de colección
     @ElementCollection
     @CollectionTable(name = "jugador_plataformas", joinColumns = @JoinColumn(name = "jugador_id"))
     @Column(name = "plataforma")
-    private List<String> plataformas;
+    private List<String> plataformas = new ArrayList<>();
 
     private String nivelExperiencia;
 
+    // Constructores
     public Jugador() {}
 
     // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
+
     public String getApodo() { return apodo; }
     public void setApodo(String apodo) { this.apodo = apodo; }
+
     public Integer getEdad() { return edad; }
     public void setEdad(Integer edad) { this.edad = edad; }
+
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
     public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
+
     public String getPosicion() { return posicion; }
     public void setPosicion(String posicion) { this.posicion = posicion; }
+
     public List<String> getPlataformas() { return plataformas; }
     public void setPlataformas(List<String> plataformas) { this.plataformas = plataformas; }
+
     public String getNivelExperiencia() { return nivelExperiencia; }
     public void setNivelExperiencia(String nivelExperiencia) { this.nivelExperiencia = nivelExperiencia; }
 }

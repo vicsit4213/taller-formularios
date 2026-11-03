@@ -36,7 +36,6 @@ public class JugadorController {
         return "lista";
     }
 
-    // Soporte para /jugadores/nuevo y también para /registro
     @GetMapping({"/jugadores/nuevo", "/registro"})
     public String nuevo(Model model) {
         model.addAttribute("jugador", new Jugador());
@@ -51,7 +50,6 @@ public class JugadorController {
         return "registro";
     }
 
-    // Soporte para guardar desde /jugadores y /registro
     @PostMapping({"/jugadores", "/registro"})
     public String guardar(@Valid @ModelAttribute("jugador") Jugador jugador,
                           BindingResult resultado, Model model) {
@@ -59,7 +57,16 @@ public class JugadorController {
             cargarListas(model);
             return "registro";
         }
-        jugadorService.guardar(jugador);
+        
+        try {
+            jugadorService.guardar(jugador);
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprimirá el error exacto en rojo en la terminal si algo falla
+            cargarListas(model);
+            model.addAttribute("errorBD", "Error al guardar en la base de datos: " + e.getMessage());
+            return "registro";
+        }
+        
         return "redirect:/jugadores";
     }
 
