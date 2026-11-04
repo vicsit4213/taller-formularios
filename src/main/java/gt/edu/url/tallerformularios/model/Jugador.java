@@ -38,7 +38,6 @@ public class Jugador {
     private String telefono;
     private String posicion;
     
-    // Lista inicializada para evitar errores si no se marca ninguna plataforma
     @ElementCollection
     @CollectionTable(name = "jugador_plataformas", joinColumns = @JoinColumn(name = "jugador_id"))
     @Column(name = "plataforma")

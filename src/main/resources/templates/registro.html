@@ -21,6 +21,7 @@
 
                         <input type="hidden" th:field="*{id}" />
 
+                        <!-- Alerta global de errores de validación -->
                         <div class="alert alert-danger mb-4" role="alert" th:if="${#fields.hasAnyErrors()}">
                             <h5 class="alert-heading fw-bold mb-2">Revisa estos datos antes de continuar:</h5>
                             <ul class="mb-0 ps-3">
@@ -28,8 +29,9 @@
                             </ul>
                         </div>
 
+                        <!-- Campo Nombre -->
                         <div class="mb-3">
-                            <label for="nombre" class="form-label font-weight-bold">Nombre:</label>
+                            <label for="nombre" class="form-label fw-bold">Nombre:</label>
                             <input type="text" id="nombre" class="form-control" th:field="*{nombre}"
                                    th:errorclass="is-invalid" aria-describedby="nombre-error" />
                             <div id="nombre-error" class="invalid-feedback"
@@ -37,8 +39,9 @@
                             </div>
                         </div>
 
+                        <!-- Campo Apodo -->
                         <div class="mb-3">
-                            <label for="apodo" class="form-label font-weight-bold">Apodo:</label>
+                            <label for="apodo" class="form-label fw-bold">Apodo:</label>
                             <input type="text" id="apodo" class="form-control" th:field="*{apodo}"
                                    th:errorclass="is-invalid" aria-describedby="apodo-error" />
                             <div id="apodo-error" class="invalid-feedback"
@@ -46,8 +49,9 @@
                             </div>
                         </div>
 
+                        <!-- Campo Edad -->
                         <div class="mb-3">
-                            <label for="edad" class="form-label font-weight-bold">Edad:</label>
+                            <label for="edad" class="form-label fw-bold">Edad:</label>
                             <input type="number" id="edad" class="form-control" th:field="*{edad}"
                                    th:errorclass="is-invalid" aria-describedby="edad-error" />
                             <div id="edad-error" class="invalid-feedback"
@@ -55,8 +59,9 @@
                             </div>
                         </div>
 
+                        <!-- Campo Correo Electrónico -->
                         <div class="mb-3">
-                            <label for="email" class="form-label font-weight-bold">Correo Electrónico:</label>
+                            <label for="email" class="form-label fw-bold">Correo Electrónico:</label>
                             <input type="email" id="email" class="form-control" th:field="*{email}"
                                    th:errorclass="is-invalid" aria-describedby="email-error" placeholder="ejemplo@correo.com" />
                             <div id="email-error" class="invalid-feedback"
@@ -64,8 +69,9 @@
                             </div>
                         </div>
 
+                        <!-- Campo Teléfono -->
                         <div class="mb-3">
-                            <label for="telefono" class="form-label font-weight-bold">Teléfono:</label>
+                            <label for="telefono" class="form-label fw-bold">Teléfono:</label>
                             <input type="text" id="telefono" class="form-control" th:field="*{telefono}"
                                    th:errorclass="is-invalid" aria-describedby="telefono-error" placeholder="12345678" />
                             <div id="telefono-error" class="invalid-feedback"
@@ -73,8 +79,9 @@
                             </div>
                         </div>
 
+                        <!-- Selector Posición -->
                         <div class="mb-3">
-                            <label for="posicion" class="form-label font-weight-bold">Posición preferida:</label>
+                            <label for="posicion" class="form-label fw-bold">Posición preferida:</label>
                             <select id="posicion" class="form-select" th:field="*{posicion}"
                                     th:errorclass="is-invalid" aria-describedby="posicion-error">
                                 <option value="">-- Seleccione una posición --</option>
@@ -85,8 +92,9 @@
                             </div>
                         </div>
 
+                        <!-- Checkboxes Plataformas -->
                         <div class="mb-3">
-                            <label class="form-label font-weight-bold d-block">Plataformas donde juega:</label>
+                            <label class="form-label fw-bold d-block">Plataformas donde juega:</label>
                             <div class="form-check" th:each="plat : ${listaPlataformas}">
                                 <input class="form-check-input" type="checkbox" th:field="*{plataformas}"
                                        th:value="${plat}" th:id="${'plat_' + plat}" th:errorclass="is-invalid" />
@@ -97,8 +105,9 @@
                             </div>
                         </div>
 
+                        <!-- Radio Buttons Nivel de Experiencia -->
                         <div class="mb-3">
-                            <label class="form-label font-weight-bold d-block">Nivel de Experiencia:</label>
+                            <label class="form-label fw-bold d-block">Nivel de Experiencia:</label>
                             <div class="form-check" th:each="nivel : ${listaNiveles}">
                                 <input class="form-check-input" type="radio" th:field="*{nivelExperiencia}"
                                        th:value="${nivel}" th:id="${'nivel_' + nivel}" th:errorclass="is-invalid" />
@@ -109,6 +118,7 @@
                             </div>
                         </div>
 
+                        <!-- Botón Enviar -->
                         <div class="d-grid mt-4">
                             <button type="submit" class="btn btn-primary btn-lg">Guardar Registro</button>
                         </div>

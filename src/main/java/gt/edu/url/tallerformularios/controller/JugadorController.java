@@ -53,15 +53,21 @@ public class JugadorController {
     @PostMapping({"/jugadores", "/registro"})
     public String guardar(@Valid @ModelAttribute("jugador") Jugador jugador,
                           BindingResult resultado, Model model) {
+        
+        // Depuración en consola si hay errores de validación del formulario
         if (resultado.hasErrors()) {
+            System.out.println("--- ERRORES DE VALIDACIÓN EN EL FORMULARIO ---");
+            resultado.getAllErrors().forEach(error -> System.out.println(error.toString()));
             cargarListas(model);
             return "registro";
         }
         
         try {
             jugadorService.guardar(jugador);
+            System.out.println("--- JUGADOR GUARDADO EXITOSAMENTE ---");
         } catch (Exception e) {
-            e.printStackTrace(); // Imprimirá el error exacto en rojo en la terminal si algo falla
+            System.out.println("--- ERROR AL GUARDAR EN BASE DE DATOS ---");
+            e.printStackTrace();
             cargarListas(model);
             model.addAttribute("errorBD", "Error al guardar en la base de datos: " + e.getMessage());
             return "registro";
